@@ -148,7 +148,7 @@ public class Main {
                             MaoDeCarta maoJogador = ((Jogador) listaVencedores.recupera(0)).getMao();
                             MaoDeCarta maoCroupier = ctr.getPartida().getCroupier().getMao();
                             if (maoJogador.valorMao() == maoCroupier.valorMao()) {
-                                System.out.println("O jogador " + listaVencedores.recupera(0).toString() + "empatou o jogo com o croupier.");
+                                System.out.println("O jogador " + listaVencedores.recupera(0).toString() + " empatou o jogo com o croupier.");
                                 System.out.println("");
                                 System.out.println("Mão do Croupier:");
                                 maoCroupier.printaMao();
@@ -157,10 +157,6 @@ public class Main {
                                 System.out.println("Mão do Jogador:");
                                 maoJogador.printaMao();
                                 System.out.println("TOTAL:" + maoJogador.valorMao() + " pontos.");
-                            } else if ((maoCroupier.valorMao() > maoJogador.valorMao()) && (maoCroupier.valorMao() <= 21)) {
-                                System.out.println("O croupier Venceu a partida com a mao:");
-                                maoCroupier.printaMao();
-                                System.out.println("TOTAL:" + maoCroupier.valorMao() + " pontos.");
                             } else if ((maoCroupier.valorMao() < maoJogador.valorMao()) && (maoJogador.valorMao() <= 21)) {
                                 System.out.println("O jogador " + listaVencedores.recupera(0).toString() + " venceu o Jogo com a Mão:");
                                 maoJogador.printaMao();
@@ -175,21 +171,48 @@ public class Main {
                                 System.out.println("A mão do Croupier foi:");
                                 maoCroupier.printaMao();
                                 System.out.println("TOTAL:" + maoCroupier.valorMao() + " pontos.");
-                            } else {
-                                System.out.println("Tanto o Croupier, Quanto o Jogador Estouraram.");
+                                System.out.println("");
+
+                                System.out.println("Então o jogador " + listaVencedores.recupera(0).toString() + " venceu o Jogo com a Mão:");
+                                maoJogador.printaMao();
+                                System.out.println("TOTAL:" + maoJogador.valorMao() + " pontos.");
+                            } else if ((maoCroupier.valorMao() > maoJogador.valorMao()) && (maoCroupier.valorMao() <= 21)) {
+                                Iterador itr = listaVencedores.iterador();
+                                while (itr.temProximo()) {
+                                    Jogador j = (Jogador) itr.proximo();
+                                    System.out.println(j);
+                                }
+
+                                System.out.println("O croupier Venceu a partida com a mao:");
+                                maoCroupier.printaMao();
+                                System.out.println("TOTAL:" + maoCroupier.valorMao() + " pontos.");
                             }
+                        } else {
+                            Iterador itr = listaVencedores.iterador();
+                            while (itr.temProximo()) {
+                                System.out.println(listaVencedores.toString());
+                            }
+
                         }
                     } else {
-                        System.out.println("Todos os Jogadores,incluindo o Croupier Estouraram.");
+                        MaoDeCarta maoCroupier = ctr.getPartida().getCroupier().getMao();
+                        if (maoCroupier.valorMao() <= 21) {
+                            System.out.println("O croupier Venceu a partida com a mao:");
+                            maoCroupier.printaMao();
+                            System.out.println("TOTAL:" + maoCroupier.valorMao() + " pontos.");
+                        } else {
+                            System.out.println("Todos os Jogadores,incluindo o Croupier Estouraram.");
+                        }
                     }
                     boolean repeteMenuzinho2;
                     do {
                         repeteMenuzinho2 = false;
-                        System.out.println("||==============MENU==============||");
-                        System.out.println("||  [1]- Voltar ao Menu Principal ||");
-                        System.out.println("||  [2]- Sair                     ||");
-                        System.out.println("||  [3]- Listar Cartas restantes  ||");
-                        System.out.println("||================================||");
+                        System.out.println("||===================MENU===================||");
+                        System.out.println("||  [1]- Voltar ao Menu Principal           ||");
+                        System.out.println("||  [2]- Sair                               ||");
+                        System.out.println("||  [3]- Listar Cartas restantes            ||");
+                        System.out.println("||  [4]- Listar Cartas restantes ordenadas  ||");
+                        System.out.println("||==========================================||");
                         int lerMenuzinho2 = Console.readInt();
                         Console.clear();
                         switch (lerMenuzinho2) {
@@ -207,6 +230,12 @@ public class Main {
                                 System.out.println("");
                                 repeteMenuzinho2 = true;
                                 break;
+                            case 4:
+                                //Botar aqui dentro a opção para listar as cartas ordenadas
+                                ctr.ordenaBaralho();
+                                repeteMenuzinho2 = true;
+                                break;
+
                             default:
                                 System.out.println("Opçao Inválida!");
                                 System.out.println("Digite Novamente!");
@@ -214,10 +243,6 @@ public class Main {
                                 break;
                         }
                     } while (repeteMenuzinho2);
-
-                    // FAZER VERIFICAÇÃO DE QUEM GANHOU
-                    //TER A OPÇAO DE LISTAR: * AS CARTAS RESTANTES
-                    //                       * AS CARTAS RESTANTES ORDENADAS POR NAIPE E POR
                     break;
                 case 3:
                     System.out.println("Os Jogadores Cadastrados são:");

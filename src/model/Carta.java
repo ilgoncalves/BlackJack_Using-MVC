@@ -1,13 +1,15 @@
 package model;
 
-public class Carta {
+public class Carta implements Comparable {
 
     private final String naipe;
     private final String valor;
+    private final Integer indice;
 
-    public Carta(String naipe, String valor) {
+    public Carta(String naipe, String valor, int indice) {
         this.naipe = naipe;
         this.valor = valor;
+        this.indice = indice;
 
     }
 
@@ -53,5 +55,10 @@ public class Carta {
     @Override
     public String toString() {
         return this.valor + " de " + this.naipe;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.indice.compareTo(((Carta) o).indice);
     }
 }

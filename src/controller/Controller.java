@@ -99,18 +99,41 @@ public class Controller {
 
     public void puxaCarta(IStack baralho, Jogador j) {
         j.getMao().adicionaCarta((Carta) baralho.pop());
-
     }
 
     public void printarCartasRestantes() {
-        IStack aux;
-        aux = pilhaBaralhoOficial;
-        int count = 0;
-        while (!aux.isEmpty()) {
-            System.out.println(aux.pop().toString());
-            count++;
+        Carta[] cartasRestantes = this.barallhoPilhaParaArray();
+        this.barallhoPilhaParaArray();//Gambiarra para inverte o baralho novamente
+        int i;
+        for (i = 0; i < cartasRestantes.length; i++) {
+            System.out.println(cartasRestantes[i].toString());
         }
-        System.out.println("Cartas Restantes: " + count);
+        System.out.println("Cartas Restantes: " + i);
+    }
+
+    public void ordenaBaralho() {
+        Carta[] cartasRestantes = this.barallhoPilhaParaArray();
+        this.barallhoPilhaParaArray();//Gambiarra para inverte o baralho novamente
+        int i;
+        for (i = 0; i < cartasRestantes.length; i++) {
+            System.out.println("ordenado: " + cartasRestantes[i].toString());
+        }
+        System.out.println("Cartas Restantes: " + i);
+
+    }
+
+    public Carta[] barallhoPilhaParaArray() {
+
+        int tamanhoBaralho = pilhaBaralhoOficial.getSize();
+        Carta[] arrayCarta = new Carta[tamanhoBaralho];
+        for (int i = 0; i < tamanhoBaralho; i++) {
+            arrayCarta[i] = (Carta) this.pilhaBaralhoOficial.pop();
+        }
+
+        for (Carta c : arrayCarta) {
+            this.pilhaBaralhoOficial.push(c);
+        }
+        return arrayCarta;
     }
 
     public void limparMaos() {
